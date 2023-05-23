@@ -1,0 +1,33 @@
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Service\Security\JWT:
+        class: App\Service\Security\JWT
+        arguments:
+            $secret: '%env(JWT_SECRET)%'
+
+    App\EventListener\RequestContentTypeListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.request', method: '__invoke' }
+
+# only for sake of this task (use services_test.yaml instead)
+    App\Tests\Generator\:
+        resource: '%kernel.project_dir%/tests/Generator/*'
+        public: true
+        autowire: true
+        autoconfigure: true
+

@@ -1,0 +1,23 @@
+## Zadanie symfony:
+- przygotuj restowe api do zarządzania produktami i kategoriami
+  - produkt ma zawierać pola
+  - nazwa
+  - opis
+  - cenę
+  - cenę promocyjną
+  - datę rozpoczęcia i zakończenia okresu promocyjnego
+  - status dostępności towaru
+  - powiązanie z kategoriami
+- Kategoria ma zawierać ( struktura może być płaska )
+  - tytuł
+  - opis
+  - listę produktów
+- crudowy kontroler zabezpieczony tokenem jwt dla metod post,put,delete
+- metodę w api pobierającą produkty znajdujące się w promocji
+- token może być 30 dniowy, nie musi być powiązany z userem
+- prosty panel administracyjny
+- zwrot danych json/xml
+## Dodatkowe punkty
+- logowanie do panelu administracyjnego z dowolnym providerem
+- testy jednostkowe
+- wypełniona baza setką produktów z powiązanymi kategoriami ( nazwy i ceny mogą być kompletnie losowe )

@@ -1,0 +1,49 @@
+version: "3.7"
+services:
+  immobile-php:
+    container_name: immobile-php
+    build:
+      dockerfile: ./docker/php/Dockerfile
+      context: ./
+    restart: always
+    working_dir: /application
+    volumes:
+      - ./:/application:delegated
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
+    networks:
+      immobile-network:
+
+  immobile-nginx:
+    container_name: immobile-nginx
+    image: ${NGINX_IMAGE}
+    ports:
+      - ${NGINX_EXTERNAL_IP}:${NGINX_EXTERNAL_PORT}:${NGINX_INTERNAL_PORT}
+    restart: always
+    depends_on:
+      - immobile-php
+    volumes:
+      - ./:/application:delegated
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      immobile-network:
+
+  immobile-mysql:
+    container_name: immobile-mysql
+    image: ${MYSQL_IMAGE}
+    ports:
+      - ${MYSQL_EXTERNAL_IP}:${MYSQL_EXTERNAL_PORT}:${MYSQL_INTERNAL_PORT}
+    volumes:
+      - immobile_mysql:/var/lib/mysql
+    environment:
+      MYSQL_DB_NAME: ${MYSQL_DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    hostname: ${MYSQL_INTERNAL_HOSTNAME}
+    networks:
+      immobile-network:
+
+networks:
+    immobile-network:
+        driver: bridge
+
+volumes:
+  immobile_mysql:
