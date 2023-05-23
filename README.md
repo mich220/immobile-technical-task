@@ -32,7 +32,7 @@
   - let client send provider code in request
   - resolve provider by code
   - get user data from provider and authenticate him
-- 
+
 ## How to start project
 
 These are following steps to setup project:
