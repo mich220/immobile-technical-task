@@ -1,8 +1,6 @@
 ## Notes from author
 
 #### What added?
-- Used DDD approach.
-- Used CQRS approach.
 - Php 8.2
 - Symfony 6.2
 - Used php-fpm alpine image
